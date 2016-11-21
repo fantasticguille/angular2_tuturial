@@ -1,0 +1,29 @@
+<p>There are {{totalCarParts()}} total parts in stock!</p>
+<ul>
+	<li class="card" *ngFor="let carPart of carParts" [class.featured]="carPart.featured">
+		<div class="panel-body">
+			<div class="photo">
+				<img [src]="carPart.image">
+			</div>
+			<div class="product-info">
+				<h2>{{carPart.name | uppercase}}</h2>
+				<p class="description">{{carPart.description}}</p>
+				<p *ngIf="carPart.inStock > 0">{{carPart.inStock}} in Stock</p>
+				<p *ngIf="carPart.inStock === 0">Out of Stock</p>
+				<p class="price">{{carPart.price | currency:'EUR':true}}</p>
+				<div class="select-quantity">
+					<button class="increase" (click)="downQuantity(carPart)">-</button>
+					<!-- without FormsModule
+					<input type="text" class="number" [value]="carPart.quantity" (input)="carPart.quantity = $event.target.value">
+					-->
+					<!-- 
+						=> Fat arrow
+						[()] Banana in a box
+					 -->
+					<input type="text" class="number" [value]="carPart.quantity" [(ngModel)]="carPart.quantity">
+					<button class="increase" (click)="upQuantity(carPart)">+</button>
+				</div>
+			</div>
+		</div>
+	</li>
+</ul>
